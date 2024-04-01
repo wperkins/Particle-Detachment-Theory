@@ -1,9 +1,20 @@
-function Fmg = theory_gravity(ref,parameters)
+% Fmgl = gravity in the direction of opposite to lift
+% Fmgt = gravity in the direction of opposite to drag
+function [ Fmgl, Fmgd ] = theory_gravity(parameters)
+    
 Dp = parameters.Dp;
-switch ref
-    case 'No gravity'
-        Fmg = 0;
-    case 'With gravity'
-        rho_p = prameters.rho_p;
-        Fmg = rho_p * 4/3*pi*(Dp/2)^3 * 9.81;
-end %switch
+rho_p = parameters.rho_p;
+
+Fmgl = rho_p * 4/3*pi*(Dp/2)^3 * 9.81;
+Fmgd = 0.0;
+
+if isfield(parameters, 'theta')
+    % Angle of substrate incline (CCW), degrees
+    theta = deg2rad(parameters.theta);
+    Fmgd = Fmgl*sin(theta);
+    Fmgl = Fmgl*cos(theta);
+end
+
+end
+      
+
