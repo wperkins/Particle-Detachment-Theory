@@ -5,6 +5,11 @@ if isempty(theory_isprogressbar)
 else
     isprogressbar = theory_isprogressbar;
 end %if
+
+if (isfield(theory, 'theta'))
+    par.theta = theory.theta;
+end
+
 % Air Properties
 par.rho = theory.const.rho;
 if isfield(theory.const,'nu')

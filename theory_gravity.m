@@ -13,6 +13,7 @@ if isfield(parameters, 'theta')
     theta = deg2rad(parameters.theta);
     Fmgd = Fmgl*sin(theta);
     Fmgl = Fmgl*cos(theta);
+    [ theta, Fmgl, Fmgd ]
 end
 
 end

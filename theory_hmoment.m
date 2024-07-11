@@ -12,6 +12,12 @@ if (parameters.assumption.liftforce == 1)
 else
     Fl = 0;
 end %if
+if (parameters.assumption.gravityforce == 1)
+    [ Fmgl, Fmgd ] = theory_gravity(parameters);
+else
+    Fmgl = 0;
+    Fmgd = 0;
+end %if
 switch ref
     case 'Smooth'
         Dp = parameters.Dp;
@@ -21,7 +27,7 @@ switch ref
         M = parameters.M;
 %         alpha0 = Dp/2 - sqrt((Dp/2)^2 - a^2);
         alpha0 = 0;
-        hmoment = M + Fd*(Dp/2 - alpha0) + Fl*a;
+        hmoment = M + (Fd-Fmgd)*(Dp/2 - alpha0) + Fl*a;
         return
     case 'Rough'
         Dp = parameters.Dp;
@@ -30,7 +36,7 @@ switch ref
 %         Fl = parameters.Fl;
         M = parameters.M;
         L = parameters.L;
-        hmoment = M + Fd*L + Fl*a;
+        hmoment = M + (Fd-Fmgd)*L + Fl*a;
         return
 end %switch
 

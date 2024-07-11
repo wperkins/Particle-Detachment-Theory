@@ -7,21 +7,6 @@ pass = 0;
 tolerance = 1e-15;
 us = 1;
 ustep = 1;
-% if ~isfield(parameters,'assumption')
-%     parameters.assumption.nldrag = 0;
-%     parameters.assumption.liftforce = 0;
-%     parameters.assumption.gravityforce = 0;
-% else
-%     if ~isfield(parameters.assumption,'nldrag')
-%         parameters.assumption.nldrag = 0;
-%     end %if
-%     if ~isfield(parameters.assumption,'liftforce')
-%         parameters.assumption.liftforce = 0;
-%     end %if
-%     if ~isfield(parameters.assumption,'gravityforce')
-%         parameters.assumption.gravityforce = 0;
-%     end %if
-% end %if
 switch model
 % -------------------------------------------------------------------------
 % ******************************** Rolling ********************************
