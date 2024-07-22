@@ -13,38 +13,34 @@ else
     Fmgl = 0;
     Fmgd = 0;
 end %if
+Dp = parameters.Dp;
+a = parameters.a;
 switch ref
     case 'Detached moment-Smooth'
-        a = parameters.a;
         Fpo = parameters.Fpo;
-        rmoment = (Fpo + Fmgl)*a;
+        rmoment = (Fpo + Fmgl)*a + Fmgd*Dp/2.0; 
         return
     case 'Detached moment-No gravitational force-Smooth'
-        a = parameters.a;
         Fpo = parameters.Fpo;
         Fmg = 0;
-        rmoment = (Fpo + Fmgl)*a;
+        rmoment = (Fpo + Fmgl)*a + Fmgd*Dp/2.0;
         return
     case 'MmaxJKR-Smooth'
-        Dp = parameters.Dp;
         Wa = parameters.Wa;
         K = parameters.K;
-        a = parameters.a;
         Mmax = 2.70716 * Wa^(4/3)*Dp^(5/3)/K^(1/3);
-        rmoment = Mmax + Fmgl*a;
+        rmoment = Mmax + Fmgl*a + Fmgd*Dp/2.0;
         return
     case 'MmaxDMT-Smooth'
-        Dp = parameters.Dp;
         Wa = parameters.Wa;
         K = parameters.K;
-        a = parameters.a;
         Mmax = 1.7254 * Wa^(4/3)*Dp^(5/3)/K^(1/3);
-        rmoment = Mmax + Fmgl*a;
+        rmoment = Mmax + Fmgl*a + Fmgd*Dp/2.0;
         return
     case 'Detached moment-Rough'
-        a = parameters.a;
         FM = parameters.FM;
-        rmoment = (FM + Fmgl)*a;
+        L = parameters.L;
+        rmoment = (FM + Fmgl)*a + Fmgd*L;
         return
 end %switch
 
