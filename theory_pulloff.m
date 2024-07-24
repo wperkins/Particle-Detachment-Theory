@@ -73,5 +73,8 @@ switch model
         k1 = 1.817;
         Fpo = (A*R/(6*H0^2)) .* ( (1+32*k1*R.*sigma./lambda.^2).^(-1) + (1+k1*sigma/H0).^(-2) );
         return
+    case 'DMT-Shallcross'
+        Fpo = theory_pulloff_shallcross(parameters)
+        return
         
 end %switch

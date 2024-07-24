@@ -174,6 +174,14 @@ if (theory.rough == 1)
                 j = j + jj;
             end %if lift
         end %if jkr
+        if (theory.dmt == 1)
+            if (theory.roll == 1)
+                par.shallcross = theory.shallcross;
+                models(j:jj+j-1) = {'DMT-Rolling-Burst-Rough'};
+                modes(j:jj+j-1) = allmodes;
+                j = j + jj;
+            end %if roll
+        end %if dmt
     end %if burst
 end %if rough
 % <<<<<<<<< ROUGH/BUMPY >>>>>>>>>>>>
@@ -242,6 +250,8 @@ cmodes = {};
 if (isprogressbar == 1)
     wb = waitbar(0,'Computing... Please wait...');
 end %if
+models
+modes
 for k=1:length(models)
     ufree = zeros(1,length(Dp));
     for i=1:length(Dp)
