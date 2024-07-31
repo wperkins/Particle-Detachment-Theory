@@ -250,8 +250,8 @@ cmodes = {};
 if (isprogressbar == 1)
     wb = waitbar(0,'Computing... Please wait...');
 end %if
-models
-modes
+% models
+% modes
 for k=1:length(models)
     ufree = zeros(1,length(Dp));
     for i=1:length(Dp)

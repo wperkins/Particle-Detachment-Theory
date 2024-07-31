@@ -41,6 +41,7 @@ switch model
         Deltac = parameters.Deltac;
         a = pi*N*fpo*bumpr*exp(-.6/Deltac^2)/K;
     case 'DMT-Rough-Shallcross'
+        % Shallcross 2024 equation 5
         a = (pi*Wa*Dp*Dp/K/2)^(1/3);
       
 end %switch

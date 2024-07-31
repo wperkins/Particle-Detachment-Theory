@@ -444,35 +444,42 @@ switch model
         end %switch
     case 'DMT-Rolling-Burst-Rough'
         switch mode
-            case 'Detached moment'
-                parameters.fpo = theory_pulloff('DMT-Shallcross',parameters);
+          case 'Detached moment'
+                parameters.a = theory_cradius('DMT-Rough-Shallcross',parameters);
+                parameters.Fpo = theory_pulloff('DMT-Shallcross',parameters);
                 Mr = theory_rmoment('Detached moment-Smooth',parameters);
-                while (k == 1)
-                    us = us + ustep;
-                    parameters.ustar = us;
-                    parameters.Fd = theory_drag('Stokes-Burst-Smooth',parameters);
-                    if (parameters.assumption.nldrag == 1)
-                        parameters.Fd = theory_drag('Nonlinear-Burst',parameters);
-                    end %if
-                    parameters.Fl = theory_lift('Saffman-Burst-Smooth',parameters);
-                    parameters.M = theory_momentp('Burst-Smooth',parameters);
-                    Mh = theory_hmoment('Smooth',parameters);
-                    if ((Mh > Mr) && (ustep > 0))
-                        ustep = -ustep / 2;
-                        pass = pass + 1;
-                    end %if
-                    if ((Mh < Mr) && (ustep < 0))
-                        ustep = -ustep / 2;
-                        pass = pass + 1;
-                    end %if
-                    if (abs((Mr-Mh)/Mr) <= tolerance)
-                        ustar = us;
-                        k = 0;
-                        return
-                    end %if
-                end %while
+                if (Mr <= 0.0)
+                    % this will happen if gravity exceeds adhesion
+                    ustar = 0.0;
+                    k = 0;
+                    return
+                else
+                    while (k == 1)
+                        us = us + ustep;
+                        parameters.ustar = us;
+                        parameters.Fd = theory_drag('Stokes-Burst-Smooth',parameters);
+                        if (parameters.assumption.nldrag == 1)
+                            parameters.Fd = theory_drag('Nonlinear-Burst',parameters);
+                        end %if
+                        parameters.Fl = theory_lift('Saffman-Burst-Smooth',parameters);
+                        parameters.M = theory_momentp('Burst-Smooth',parameters);
+                        Mh = theory_hmoment('Smooth',parameters);
+                        if ((Mh > Mr) && (ustep > 0))
+                            ustep = -ustep / 2;
+                            pass = pass + 1;
+                        end %if
+                        if ((Mh < Mr) && (ustep < 0))
+                            ustep = -ustep / 2;
+                            pass = pass + 1;
+                        end %if
+                        if (abs((Mr-Mh)/Mr) <= tolerance)
+                            ustar = us;
+                            k = 0;
+                            return
+                        end %if
+                    end %while
+                end%if
         end%switch mode
-    end% switch
 
 % -------------------------------------------------------------------------
 % ******************************** Sliding ********************************
